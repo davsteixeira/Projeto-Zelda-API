@@ -3,7 +3,7 @@
 
 <h3>Integrantes do projeto:</h3>
 
-<a href="#>🔗 Eduardo Ferrão dos Santos</a>
+<a href="#">🔗 Eduardo Ferrão dos Santos</a>
 <a href="#">🔗 Pedro Lobato Toralles</a> 
 <a href="#">🔗 David Silva Teixeira</a>
 <a href="#">🔗 Maria Fernanda Alves Moreno</a>
