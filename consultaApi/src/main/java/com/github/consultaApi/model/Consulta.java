@@ -1,20 +1,19 @@
 package com.github.consultaApi.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+
 @Data
+@AllArgsConstructor
 public class Consulta {
+    private String id;
     private String name;
     private String description;
     private String developer;
     private String publisher;
-    private String releasedDate;
-    private String id;
-
-    // Construtor vazio
-    public Consulta() {
-    }
-
-    // Getters e Setters
-    // ...
+    private String released_date;
 }
+
+
+
