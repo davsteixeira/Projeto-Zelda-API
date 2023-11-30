@@ -28,10 +28,8 @@ public class ConsultaController {
     }
 
     @GetMapping("/games/{id}")
-    public Mono<ResponseEntity<Consulta>> getGameById(@PathVariable String id) {
-        return consultaService.getGameById(id)
-                .map(ResponseEntity::ok)
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+    public Mono<GameResponse> getGameById(@PathVariable String id) {
+        return consultaService.getGameById(id);
     }
 
 }

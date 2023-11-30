@@ -22,22 +22,11 @@ public class ConsultaService {
                 .retrieve().bodyToMono(GameResponse.class);
     }
 
-    public Mono<Consulta> getGameById(String specificId) {
-        return getAllGames()
-                .map(gameResponse -> findConsultaById(gameResponse, specificId))
-                .flatMap(gameResponse -> Mono.justOrEmpty(gameResponse.getData().get(0)));
+    public Mono<GameResponse> getGameById(String id) {
+        return webClient.get().uri("/games/" + id)
+                .retrieve().bodyToMono(GameResponse.class);
     }
 
-    private GameResponse findConsultaById(GameResponse gameResponse, String specificId) {
-        if (gameResponse != null && gameResponse.getData() != null) {
-            gameResponse.setData(gameResponse.getData()
-                    .stream()
-                    .filter(consulta -> specificId.equals(consulta.getId()))
-                    .collect(Collectors.toList()));
-            gameResponse.setCount(gameResponse.getData().size());
-        }
-        return gameResponse;
-    }
 }
 
 
