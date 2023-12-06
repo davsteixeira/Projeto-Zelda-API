@@ -1,6 +1,8 @@
 package com.github.userApi.controllers;
 
+import com.github.userApi.infra.security.TokenService;
 import com.github.userApi.model.AuthDTO;
+import com.github.userApi.model.LoginResponseDTO;
 import com.github.userApi.model.RegisterDTO;
 import com.github.userApi.model.User;
 import com.github.userApi.repository.UserRepository;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("auth")
 public class AuthController {
     @Autowired
+    private TokenService tokenService;
+    @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
     private UserRepository repository;
@@ -28,7 +32,9 @@ public class AuthController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.nome(), data.senha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-                return ResponseEntity.ok().build();
+        var token = tokenService.gerarToken((User) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
