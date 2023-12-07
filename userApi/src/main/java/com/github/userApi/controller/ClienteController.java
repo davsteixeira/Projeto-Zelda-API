@@ -3,14 +3,12 @@ package com.github.userApi.controller;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.userApi.service.UserService;
+import com.github.userApi.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 
 package controller;
@@ -20,10 +18,10 @@ package controller;
 
 public class ClienteController {
 
-    private final UserService userService;
+    private final UserRepository userService;
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public ClienteController(UserService userService){
+    public ClienteController(UserRepository userService){
         this.UserService = userService;
     }
 
@@ -34,7 +32,7 @@ public class ClienteController {
 
     @GetMapping("/{id}"){
         public ResponseEntity<User> ler(@PathVariable("id") Long id){
-            return new ResponseEntity<>(UserService.getUser(id), HttpStatus.OK);
+            return new ResponseEntity<>(UserRepository.getUser(id), HttpStatus.OK);
         }
     }
 

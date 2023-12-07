@@ -3,7 +3,7 @@ package userApi.src.main.java.com.github.userApi.controller;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.userApi.service.UserService;
+import com.github.userApi.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +18,10 @@ import java.io.IOException;
 
 public class UserController {
 
-    private final UserService userService;
+    private final UserRepository userService;
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public UserController(UserService userService){
+    public UserController(UserRepository userService){
         this.UserService = userService;
     }
 
@@ -32,7 +32,7 @@ public class UserController {
 
     @GetMapping("/{id}"){
         public ResponseEntity<User> ler(@PathVariable("id") Long id){
-            return new ResponseEntity<>(UserService.getUser(id), HttpStatus.OK);
+            return new ResponseEntity<>(UserRepository.getUser(id), HttpStatus.OK);
         }
     }
 
@@ -49,7 +49,7 @@ public class UserController {
     public ResponseEntity<User> atualizar(@RequestParam String userData, @RequestParam(value = "file", required = false) final MultipartFile file ) throws IOException {
         final var atualizarUserRequest = mapper.readValue(userData, AtualizarUserRequest.class);
 
-        var user = UserService.atualizar(atualizarUserRequest);
+        var user = UserRepository.atualizar(atualizarUserRequest);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

@@ -1,4 +1,4 @@
-package userApi.src.main.java.com.github.userApi.controller.dto;
+package com.github.userApi.dto;
 
 package br.com.feltex.clienteapi.controller.dto;
 import lombok.Data;

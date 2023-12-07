@@ -1,4 +1,4 @@
-package userApi.src.main.java.com.github.userApi.controller.dto;
+package com.github.userApi.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
