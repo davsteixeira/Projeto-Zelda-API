@@ -11,7 +11,12 @@ public class GatewayConf {
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route()
+                .route("webclient", r -> r.path("/api/games")
+                    .uri("http://localhost:8082"))
+                .route("webclientID", r-> r.path("/api/games/*")
+                        .filters(f -> f.rewritePath("/<id>.*", "/${id}*"))
+                        .uri("http://localhost:8082"))
+                .build();
 
 
     }
