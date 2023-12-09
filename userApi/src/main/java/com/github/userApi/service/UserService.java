@@ -1,52 +1,38 @@
 package com.github.userApi.service;
+import java.util.ArrayList;
 import  java.util.List;
-
+import com.github.userApi.dto.User;
 import com.github.userApi.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository){
-        this.UserRepository = userRepository;
+    private List<User> listaDeUsuarios = new ArrayList<>();
+    @Autowired
+    UserRepository userRepository;
+
+    //A lógica aqui nesses métodos é bem simples graças ao repository do projeto, que dá acesso a métodos como o findAll ou findById
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
-    public List<User> listar(){
-        return UserRepository.FindAll();
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
-    public User getUser(Long id){
-        return userRepository.findById(id)
-                //.orElseThrow(() -> new UserNotFoundException("User não localizado" + id));
-    }
-
-    public User incluir(IncluirUserRequest userRequest) {
-        var data = Instant.now();
-
-        var User = new User();
-        BeanUtils.copyProperties(userRequest, user);
-        user.setDataCadastro(data);
-        user.setUltimaAtualizacao(data);
+    public void saveUser(User user) {
         userRepository.save(user);
-
-        return user;
     }
 
-    public User atualizar(AtualizarUserRequest atualizarUserRequest) {
-        var user = UserRepository.findById(atualizarUserRequest.getId()).get();
-
-        BeanUtils.copyProperties(atualizarUserRequest, cliente);
-        user.setUltimaAtualizacao(Instant.now());
-        userRepository.save(cliente);
-        return cliente;
+    public void updateUser(User user) {
+        if (userRepository.existsById(user.getId())) {
+            userRepository.save(user);
+        }
     }
 
-    public void deletar(Long id) {
+    public void delete(Long id) {
         userRepository.deleteById(id);
     }
-
-
-
-
 }

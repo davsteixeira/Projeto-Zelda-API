@@ -1,64 +1,55 @@
-package userApi.src.main.java.com.github.userApi.controller;
-
+package com.github.userApi.controller;
 import java.util.List;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.userApi.dto.User;
 import com.github.userApi.repository.UserRepository;
-import org.springframework.beans.BeanUtils;
+import com.github.userApi.service.UserService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-
 
 @RestController
-@RequestMapping("api/clientes")
+@RequestMapping("api/users")
+public class
+UserController {
 
-public class UserController {
+    // Aqui estou instanciando o repository e o service
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    UserService userService;
 
-    private final UserRepository userService;
-    private final ObjectMapper mapper = new ObjectMapper();
-
-    public UserController(UserRepository userService){
-        this.UserService = userService;
-    }
-
+    //Aqui estou chamando os métodos da service e colocando os endpoints
     @GetMapping()
-    public ResponseEntity<List<User>> listar(){
-        return new ResponseEntity<>(userService.listar(), HttpStatus.OK);
+    public ResponseEntity<List<User>> getAllUsers(){
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}"){
-        public ResponseEntity<User> ler(@PathVariable("id") Long id){
-            return new ResponseEntity<>(UserRepository.getUser(id), HttpStatus.OK);
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getNinjaPorId(@PathVariable Long id) {
+        User user = userService.getUserById(id);
+        if (user != null) {
+            return ResponseEntity.ok(user);
         }
+        return ResponseEntity.notFound().build();
     }
 
-    @PostMapping()
-    public ResponseEntity<IncluirUserResponse> incluir (@RequestParam String UserData @RequestParam("file") final MultipartFile file){
-        final var IncludeUserRequest = mapper.readValue(UserData, IncluirUserRequest.class);
-        var user = userService.incluir(incluirUserRequest);
-        var userResponse = new IncluirUserResponse();
-        BeanUtils.copyProperties(user, userResponse);
-        return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
+    @PostMapping("/save")
+    public ResponseEntity<String> saveUser(@RequestBody @Valid User user){
+        userService.saveUser(user);
+        return ResponseEntity.ok("Usuário cadastrado!");
     }
 
-    @PutMapping()
-    public ResponseEntity<User> atualizar(@RequestParam String userData, @RequestParam(value = "file", required = false) final MultipartFile file ) throws IOException {
-        final var atualizarUserRequest = mapper.readValue(userData, AtualizarUserRequest.class);
-
-        var user = UserRepository.atualizar(atualizarUserRequest);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    @PutMapping("/update")
+    public ResponseEntity<String> updateUser(@RequestBody @Valid User user) {
+        userService.updateUser(user);
+        return ResponseEntity.ok("Usuário atualizado com sucesso");
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<?> deletar(@PathVariable("id") Long id) {
-        userService.deletar(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        userService.delete(id);
+        return ResponseEntity.ok("Usuário deletado com sucesso");
     }
-}
-
-
 }

@@ -1,23 +1,12 @@
 package com.github.userApi.repository;
-import java.util.List;
+import com.github.userApi.dto.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import org.springframework.stereotype.Service;
+//antes essa classe era um dos UserService, transformei no repository
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
 
-@Service
-public class UserRepository {
-//    private final UserRepository userRepository;
-//
-//    public ClienteService(UserRepository clienteRepository){
-//        this.UserRepository = clienteRepository;
-//    }
-//
-//    public List<User> listar(){
-//        return UserRepository.FindAll();
-//    }
-//
-//    public User getUser(Long id){
-//        return userRepository.findById(id)
-//                //.orElseThrow(() -> new UserNotFoundException("User não localizado" + id));
-//    }
-//
 }
+
+//Aqui tudo que precisou ser feito foi criar esse repository que a partir disso os métodos do repository já podem ser utilizados
