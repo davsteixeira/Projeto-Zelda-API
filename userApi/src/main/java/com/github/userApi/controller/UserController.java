@@ -3,7 +3,6 @@ import java.util.List;
 import com.github.userApi.dto.User;
 import com.github.userApi.repository.UserRepository;
 import com.github.userApi.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,13 +35,13 @@ UserController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<String> saveUser(@RequestBody @Valid User user){
+    public ResponseEntity<String> saveUser(@RequestBody User user){
         userService.saveUser(user);
         return ResponseEntity.ok("Usuário cadastrado!");
     }
 
     @PutMapping("/update")
-    public ResponseEntity<String> updateUser(@RequestBody @Valid User user) {
+    public ResponseEntity<String> updateUser(@RequestBody User user) {
         userService.updateUser(user);
         return ResponseEntity.ok("Usuário atualizado com sucesso");
     }
