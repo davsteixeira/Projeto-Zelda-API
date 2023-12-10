@@ -1,5 +1,5 @@
 package com.github.consultaApi.service;
-import com.github.consultaApi.model.GameResponse;
+import com.github.consultaApi.model.Consulta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -11,18 +11,18 @@ public class ConsultaService {
     @Autowired
     private WebClient webClient;
 
-    public Mono<GameResponse> getAllGames() {
+    public Mono<Consulta> getAllGames() {
         return webClient.get()
                 .uri("/games")
                 .retrieve()
-                .bodyToMono(GameResponse.class);
+                .bodyToMono(Consulta.class);
     }
 
-    public Mono<GameResponse> getGameById(String id) {
+    public Mono<Consulta> getGameById(String id) {
         return webClient.get()
                 .uri("/games/" + id)
                 .retrieve()
-                .bodyToMono(GameResponse.class);
+                .bodyToMono(Consulta.class);
     }
 }
 

@@ -1,5 +1,5 @@
 package com.github.consultaApi.controller;
-import com.github.consultaApi.model.GameResponse;
+import com.github.consultaApi.model.Consulta;
 import com.github.consultaApi.service.ConsultaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,12 +20,12 @@ public class ConsultaController {
     }
 
     @GetMapping("/games")
-    public Mono<GameResponse> getAllGames() {
+    public Mono<Consulta> getAllGames() {
         return consultaService.getAllGames();
     }
 
     @GetMapping("/games/{id}")
-    public Mono<GameResponse> getGameById(@PathVariable String id) {
+    public Mono<Consulta> getGameById(@PathVariable String id) {
         return consultaService.getGameById(id);
     }
 
