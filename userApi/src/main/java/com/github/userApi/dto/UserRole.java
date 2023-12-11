@@ -1,4 +1,4 @@
-package com.github.userApi.model;
+package com.github.userApi.dto;
 
 public enum UserRole {
     ADMIN("admin"),

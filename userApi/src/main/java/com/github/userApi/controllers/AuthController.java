@@ -1,10 +1,10 @@
 package com.github.userApi.controllers;
 
 import com.github.userApi.infra.security.TokenService;
-import com.github.userApi.model.AuthDTO;
-import com.github.userApi.model.LoginResponseDTO;
-import com.github.userApi.model.RegisterDTO;
-import com.github.userApi.model.User;
+import com.github.userApi.dto.AuthDTO;
+import com.github.userApi.dto.LoginResponseDTO;
+import com.github.userApi.dto.RegisterDTO;
+import com.github.userApi.dto.User;
 import com.github.userApi.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

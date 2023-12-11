@@ -1,4 +1,4 @@
-package com.github.userApi.model;
+package com.github.userApi.dto;
 
 
 import jakarta.persistence.*;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Collection;
 
 @Table(name = "users")
-@Entity(name = "users")
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
