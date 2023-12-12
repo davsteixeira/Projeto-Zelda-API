@@ -75,7 +75,7 @@ public class UserServiceTest {
 
     @Test
     public void testUpdateUser_WhenUserExists() {
-        User existingUser = new User(2L, "Sanji", 21);
+        User existingUser = new User(2L, "Sanji", 22);
         when(userRepository.existsById(2L)).thenReturn(true);
 
         userService.updateUser(existingUser);

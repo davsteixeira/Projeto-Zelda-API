@@ -26,7 +26,7 @@ UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getNinjaPorId(@PathVariable Long id) {
+    public ResponseEntity<User> getUserbyId(@PathVariable Long id) {
         User user = userService.getUserById(id);
         if (user != null) {
             return ResponseEntity.ok(user);
@@ -40,8 +40,9 @@ UserController {
         return ResponseEntity.ok("Usuário cadastrado!");
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> updateUser(@RequestBody User user) {
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody User user) {
+        user.setId(id);
         userService.updateUser(user);
         return ResponseEntity.ok("Usuário atualizado com sucesso");
     }
