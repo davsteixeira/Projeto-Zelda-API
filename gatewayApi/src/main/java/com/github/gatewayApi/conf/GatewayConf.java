@@ -19,15 +19,15 @@ public class GatewayConf {
                 .route("usuarios", r -> r.path("/api/users/get")
                         .uri("http://localhost:8081"))
                 .route("usuarioId", r -> r.path("/api/users/**")
-                        .filters(f -> f.rewritePath("/users/(?<id>.*)", "/${id}"))
+                        .filters(f -> f.rewritePath("/(?<id>.*)", "/${id}"))
                         .uri("http://localhost:8081"))
                 .route("cadastrarUsuarios", r -> r.path("/api/users/save")
                         .uri("http://localhost:8081"))
                 .route("atualizarUsuario", r -> r.path("/api/users/update/**")
-                        .filters(f -> f.rewritePath("/update/(?/<id>.*)", "/${id}"))
+                        .filters(f -> f.rewritePath("/(?/<id>.*)", "/${id}"))
                         .uri("http://localhost:8081"))
                 .route("deletarUsuario", r -> r.path("/api/users/delete/**")
-                        .filters(f -> f.rewritePath("/delete/(?<id>.*)", "/${id}"))
+                        .filters(f -> f.rewritePath("/(?<id>.*)", "/${id}"))
                         .uri("http://localhost:8081"))
                 .build();
     }
