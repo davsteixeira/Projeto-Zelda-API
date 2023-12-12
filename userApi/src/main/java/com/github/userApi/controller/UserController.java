@@ -20,13 +20,13 @@ UserController {
     UserService userService;
 
     //Aqui estou chamando os métodos da service e colocando os endpoints
-    @GetMapping()
+    @GetMapping("/get")
     public ResponseEntity<List<User>> getAllUsers(){
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getNinjaPorId(@PathVariable Long id) {
+    public ResponseEntity<User> getUserbyId(@PathVariable Long id) {
         User user = userService.getUserById(id);
         if (user != null) {
             return ResponseEntity.ok(user);
@@ -40,13 +40,14 @@ UserController {
         return ResponseEntity.ok("Usuário cadastrado!");
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> updateUser(@RequestBody User user) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody User user) {
+        user.setId(id);
         userService.updateUser(user);
         return ResponseEntity.ok("Usuário atualizado com sucesso");
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         userService.delete(id);
         return ResponseEntity.ok("Usuário deletado com sucesso");
