@@ -40,14 +40,14 @@ UserController {
         return ResponseEntity.ok("Usuário cadastrado!");
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody User user) {
         user.setId(id);
         userService.updateUser(user);
         return ResponseEntity.ok("Usuário atualizado com sucesso");
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         userService.delete(id);
         return ResponseEntity.ok("Usuário deletado com sucesso");
