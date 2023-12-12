@@ -20,7 +20,7 @@ UserController {
     UserService userService;
 
     //Aqui estou chamando os métodos da service e colocando os endpoints
-    @GetMapping()
+    @GetMapping("/get")
     public ResponseEntity<List<User>> getAllUsers(){
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
